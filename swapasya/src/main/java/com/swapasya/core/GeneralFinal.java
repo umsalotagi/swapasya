@@ -1174,10 +1174,21 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 			    
 			    
 			    
+			    Entity bookTitle = null;
+			    try {
+					bookTitle = datastore.get(parentBookTitleKey);
+				} catch (EntityNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			    
+			    String bookName = (String) bookTitle.getProperty(BookTitleProp.bookName);
+				String authour = (String) bookTitle.getProperty(BookTitleProp.author);
+				
 			    System.out.println("Book is returned. \n");
 			    
 			    createTransactionHistoryReturning ( person ,  book , bookID ,  personID , issueDate , 
-			    		GenProp.customTypeIssue, todayDate , fineCollected);
+			    		GenProp.customTypeIssue, todayDate , fineCollected , bookName , authour);
 			    
 			} catch (TransactionFailed e) {
 				
@@ -1194,7 +1205,7 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 		
 		
 		public void createTransactionHistoryReturning ( Entity person , Entity book , String bookID , String personID ,
-				Date issueDate , String issueType, Date todayDate , float fineCollected ) {
+				Date issueDate , String issueType, Date todayDate , float fineCollected , String bookName , String authour) {
 		 	SimpleDateFormat sdf = new SimpleDateFormat("YYMMdd");
 		    Entity transactionHistory = new Entity(NameKinds.TransactionHistory , personID+bookID+sdf.format(todayDate) , person.getKey());
 		    System.out.println("tran his  : " + personID+bookID+"_"+sdf.format(todayDate));
@@ -1217,8 +1228,8 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 			//transactionHistory.setProperty(TransactionHistoryProp.branch, branch);
 			transactionHistory.setProperty(TransactionHistoryProp.courseyear, courseyear);
 
-			String bookName = (String) book.getProperty(BookProp.bookName);
-			String authour = (String) book.getProperty(BookProp.author);
+//			String bookName = (String) book.getProperty(BookProp.bookName);
+//			String authour = (String) book.getProperty(BookProp.author);
 
 			transactionHistory.setProperty(TransactionHistoryProp.bookName, bookName);
 			transactionHistory.setProperty(TransactionHistoryProp.authour, authour);

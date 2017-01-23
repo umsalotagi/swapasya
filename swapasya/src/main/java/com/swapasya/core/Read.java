@@ -186,7 +186,6 @@ public class Read {
 
 			e1.printStackTrace();
 		}
-		System.out.println("Book history of book " + book.getProperty(BookProp.bookName));
 		
 		Query q = new Query(NameKinds.TransactionHistory);
 		
