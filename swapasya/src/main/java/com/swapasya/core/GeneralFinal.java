@@ -268,7 +268,7 @@ public class GeneralFinal {
 
 		Entity issueWiseRules = new Entity(NameKinds.Rules, readerType + "-" + issueType);
 
-		issueWiseRules.setProperty(RulesProp.roleAndBkCatORissueType, readerType + "-" + issueType);
+		issueWiseRules.setProperty(RulesProp.readerType_BkCatORissueType, readerType + "-" + issueType);
 		issueWiseRules.setProperty(RulesProp.dayLimit, (int) dayLimitForEachBook);
 		// Not always necessary
 		issueWiseRules.setProperty(RulesProp.maxQuantity, (int) bookQuantityLimit); 
@@ -282,7 +282,7 @@ public class GeneralFinal {
 		
 		Entity issueWiseRules = new Entity(NameKinds.Rules, readerType +"-"+ issueType);
 		
-		issueWiseRules.setProperty(RulesProp.roleAndBkCatORissueType, readerType +"-"+ issueType);
+		issueWiseRules.setProperty(RulesProp.readerType_BkCatORissueType, readerType +"-"+ issueType);
 		issueWiseRules.setProperty(RulesProp.dayLimit,(int) dayLimitForEachBook);
 		
 		//specific to person ?
@@ -296,7 +296,7 @@ public class GeneralFinal {
 
 		Entity categoryWiseRules = new Entity(NameKinds.Rules, readerType + "-" + bookCategory);
 
-		categoryWiseRules.setProperty(RulesProp.roleAndBkCatORissueType, readerType + "-" + bookCategory);
+		categoryWiseRules.setProperty(RulesProp.readerType_BkCatORissueType, readerType + "-" + bookCategory);
 		categoryWiseRules.setProperty(RulesProp.dayLimit, (int) dayLimitForEachBook);
 		categoryWiseRules.setProperty(RulesProp.maxQuantity, (int) bookQuantityLimit);
 		categoryWiseRules.setProperty(RulesProp.maxTotalQuantity, (int) maxTotalQuantity); //
@@ -311,7 +311,7 @@ public class GeneralFinal {
 		 
 		Entity categoryWiseRules = new Entity(NameKinds.Rules, readerType +"-"+ bookCategory);
 		
-		categoryWiseRules.setProperty(RulesProp.roleAndBkCatORissueType, readerType +"-"+ bookCategory);
+		categoryWiseRules.setProperty(RulesProp.readerType_BkCatORissueType, readerType +"-"+ bookCategory);
 		categoryWiseRules.setProperty(RulesProp.dayLimit,(int) dayLimitForEachBook);
 		categoryWiseRules.setProperty(RulesProp.maxQuantity, (int) bookQuantityLimit);
 		categoryWiseRules.setProperty(RulesProp.finePerDay, finePerDay);
