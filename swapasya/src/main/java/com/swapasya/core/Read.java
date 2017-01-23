@@ -44,7 +44,82 @@ public class Read {
 	}
 	
 	
-	public void getHistory (String personID) throws TransactionFailed {
+	
+	// AssignList, waitlist 
+	
+	public Entity getAssignList (String personID) {
+		Entity person = null;
+		try {
+			person = datastore.get(KeyFactory.createKey(NameKinds.Person, personID));
+		} catch (EntityNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return person;
+	}
+	
+	
+	
+	
+	
+	public Entity getPerson (String personID) {
+		Entity person = null;
+		try {
+			person = datastore.get(KeyFactory.createKey(NameKinds.Person, personID));
+		} catch (EntityNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return person;
+	}
+	
+	
+	public Entity getBook (String bookID) {
+		Entity book = null;
+		try {
+		//	person = datastore.get(KeyFactory.createKey(NameKinds.Person, personID));
+			Filter f = new FilterPredicate(BookProp.bookID, FilterOperator.EQUAL, bookID);
+	    	Query q = new Query(NameKinds.Book).setFilter(f);
+	    	book = datastore.prepare(q).asSingleEntity();
+	    	if (book==null)
+	    		throw new Exception();
+		} catch (EntityNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return book;
+	}
+	
+	
+	public Entity getBookTitle (String titleID) {
+		Entity bookTitle = null;
+		try {
+			bookTitle = datastore.get(KeyFactory.createKey(NameKinds.BookTitle, titleID));
+		} catch (EntityNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return bookTitle;
+	}
+	
+	
+	
+	public Entity getBookTitle (Entity book) {
+		Entity bookTitle = null;
+		try {
+			bookTitle = datastore.get(book.getParent());
+		} catch (EntityNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return bookTitle;
+	}
+	
+	
+	public List<Entity> getHistory (String personID) throws TransactionFailed {
 		
 		Entity person = null;
 		Key k ;
@@ -76,21 +151,21 @@ public class Read {
 		
 		List<Entity> results = datastore.prepare(q3).asList(FetchOptions.Builder.withDefaults());
 		
-		for (Entity e : results) {
-			
-			System.out.println("One " + e.getProperty(BookProp.bookName) + " " + e.getProperty(TransactionHistoryProp.dateOfIssue) + "" + e.getProperty(TransactionHistoryProp.person));
-		//	System.out.println("One " + e.getProperty(PersonProp.address));
-			
-		}
+//		for (Entity e : results) {
+//			
+//			System.out.println("One " + e.getProperty(BookProp.bookName) + " " + e.getProperty(TransactionHistoryProp.dateOfIssue) + "" + e.getProperty(TransactionHistoryProp.person));
+//		//	System.out.println("One " + e.getProperty(PersonProp.address));
+//			
+//		}
 		
-		
+		return results;
 		
 		
 	}
 	
 	
 	
-	public void getHistoryForBook (String bookID) throws TransactionFailed {
+	public List<Entity> getHistoryForBook (String bookID) throws TransactionFailed {
 		
 		Entity book = null;
 		Key k ;
@@ -123,12 +198,14 @@ public class Read {
 			
 		List<Entity> results = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
 		
-		for (Entity e : results) {
-			
-			System.out.println("One " + e.getProperty(TransactionHistoryProp.bookID) + " " + e.getProperty(TransactionHistoryProp.dateOfIssue) + "" + e.getProperty(TransactionHistoryProp.person));
-		//	System.out.println("One " + e.getProperty(PersonProp.address));
-			
-		}
-}
+//		for (Entity e : results) {
+//			
+//			System.out.println("One " + e.getProperty(TransactionHistoryProp.bookID) + " " + e.getProperty(TransactionHistoryProp.dateOfIssue) + "" + e.getProperty(TransactionHistoryProp.person));
+//		//	System.out.println("One " + e.getProperty(PersonProp.address));
+//			
+//		}
+		
+		return results;
+	}
 
 }
