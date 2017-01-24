@@ -47,15 +47,13 @@ public class Read {
 	
 	// AssignList, waitlist 
 	
-	public Entity getAssignList (String personID) {
-		Entity person = null;
-		try {
-			person = datastore.get(KeyFactory.createKey(NameKinds.Person, personID));
-		} catch (EntityNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return person;
+	public List<Entity> getAssignList (String personID) {
+		List<Entity> assignList = null;
+		//	person = datastore.get(KeyFactory.createKey(NameKinds.Person, personID));
+			Filter f = new FilterPredicate("personID", FilterOperator.EQUAL, personID);
+	    	Query q = new Query(NameKinds.AssignList).setFilter(f).setKeysOnly();
+	    	assignList = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
+		return assignList;
 	}
 	
 	

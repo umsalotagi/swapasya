@@ -53,10 +53,13 @@ public class GUmeshProServlet extends HttpServlet {
 //		}
 		
 		
+		Read r5 = new Read("MH001");
 		
-		
+		r5.getAssignList("16119");
 
-		
+
+		System.out.println("Exit");
+		System.exit(0);
 		
 		try {
 			gen.addMeToWaitORAssignList ( "161119" , "T_B02");

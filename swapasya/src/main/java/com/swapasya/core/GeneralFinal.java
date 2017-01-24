@@ -456,15 +456,18 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 		TransactionOptions options = TransactionOptions.Builder.withXG(true);
 	    Transaction txn = datastore.beginTransaction(options);
 		
+	    
 		try {
 		    if (results>results2) {
 		    	System.out.println("creating assign list");
 				Entity assigned = new Entity(NameKinds.AssignList, personID, bookTitleKey);
 				assigned.setUnindexedProperty(GenProp.Date, d);
+				assigned.setIndexedProperty("personID", bookTitleID);
 				datastore.put(txn, assigned);
 			} else {
 				Entity waitlisted = new Entity(NameKinds.WaitList, personID, bookTitleKey);
 				waitlisted.setIndexedProperty(GenProp.Date, d);
+				waitlisted.setIndexedProperty("personID", bookTitleID);
 				datastore.put(txn, waitlisted);
 			}
 		    txn.commit();
@@ -514,9 +517,10 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 		
 	}
 
-	public void issueBookByCategory (String personID, String bookID ,Date todayDate) {
+	public int issueBookByCategory (String personID, String bookID ,Date todayDate) {
 		
 		System.out.println("\n\nNewwwwwwwwwww");
+		int returnType = 1;
 		
 		TransactionOptions options = TransactionOptions.Builder.withXG(true);
 	    Transaction txn = datastore.beginTransaction(options);
@@ -666,7 +670,7 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 	//	    createTransactionHistory ( person ,  book , bookID ,  personID , todayDate , GenProp.categoryIssue);
 		    
 	    // 8 get    	5 set
-		    
+		    returnType = 0;
 	    } catch (TransactionFailed e) {
 	    	e.printStackTrace();
 	    } catch (Exception e) {
@@ -677,7 +681,7 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 		      }
 		}
 		
-		
+		return returnType;
 		
 	}
 	
@@ -688,9 +692,10 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 	
 	
 	// DECIDING ISSUETYPE PERTICULAR TO PERSON
-		public void issueBookByIssueType (String personID, String bookID ,Date todayDate , String issueType) {
+		public int issueBookByIssueType (String personID, String bookID ,Date todayDate , String issueType) {
 			
 			System.out.println("\n\nNewwwwwwwwwww");
+			int returnType = 1;
 			
 			TransactionOptions options = TransactionOptions.Builder.withXG(true);
 		    Transaction txn = datastore.beginTransaction(options);
@@ -828,6 +833,7 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 			    System.out.println("Book issed Success !!!!!  to " + personID + " the book " + bookID);
 			    
 		//	    createTransactionHistory ( person ,  book , bookID ,  personID , todayDate , issueType);
+			    returnType = 0;
 			    
 		    } catch (TransactionFailed e) {
 		    	e.printStackTrace();
@@ -839,6 +845,7 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 			      }
 			}
 			
+		    return returnType;
 			
 		}
 		
@@ -852,9 +859,10 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 		
 		
 		
-		public void issueBookByFreeIssue (String personID, String bookID ,Date todayDate , Date returnDate , int finePerDay , boolean isForceIssue) {
+		public int issueBookByFreeIssue (String personID, String bookID ,Date todayDate , Date returnDate , int finePerDay , boolean isForceIssue) {
 			
 			System.out.println("\n\nNewwwwwwwwwww");
+			int returnType = 1;
 			
 			TransactionOptions options = TransactionOptions.Builder.withXG(true);
 		    Transaction txn = datastore.beginTransaction(options);
@@ -940,6 +948,7 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 			    
 			    System.out.println("Book issed Success !!!!!  to " + personID + " the book " + bookID);
 		//	    createTransactionHistory ( person ,  book , bookID ,  personID , todayDate , GenProp.customTypeIssue);
+			    returnType = 0;
 			    
 		    } catch (TransactionFailed e) {
 		    	e.printStackTrace();
@@ -951,6 +960,7 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 			      }
 			}
 			
+		    return returnType;
 			
 		}
 		
@@ -969,7 +979,7 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 		}
 
 		
-		public void allReturnOne (String bookID, Date todayDate) {
+		public int allReturnOne (String bookID, Date todayDate) {
 			
 		    Entity book;
 		    String personID;
@@ -994,14 +1004,14 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 	    	} catch (Exception e) {
 	    		System.out.println("BookID or PersonID is invalid");
 	    		e.printStackTrace();
-	    		return;
+	    		return 1;
 	    	}
 			
-			allreturn (person, personID, book, bookID, todayDate);
+			return allreturn (person, personID, book, bookID, todayDate);
 			
 		}
 		
-		public void allReturn (String personID, String bookID, Date todayDate) {
+		public int allReturn (String personID, String bookID, Date todayDate) {
 			 Entity person;
 			  Entity book;
 			  
@@ -1016,10 +1026,10 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 		    		
 		    		System.out.println("BookID or PersonID is invalid");
 		    		e.printStackTrace();
-		    		return;
+		    		return 1;
 		    	}
 			  
-			  allreturn (person, personID, book, bookID, todayDate);
+			  return allreturn (person, personID, book, bookID, todayDate);
 		}
 		
 		private void changeAssignListAfterReturn (Key parentBookTitleKey, Transaction txn) {
@@ -1041,11 +1051,12 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 	    	
 		}
 		
-		private void allreturn (Entity person, String personID, Entity book, String bookID, Date todayDate) {
+		private int allreturn (Entity person, String personID, Entity book, String bookID, Date todayDate) {
 			
 			TransactionOptions options = TransactionOptions.Builder.withXG(true);
 		    Transaction txn = datastore.beginTransaction(options);
 		   
+		    int returnType = 1;
 		    
 		    Entity issueCatWiseRules;
 		    Date issueDate = null;
@@ -1061,7 +1072,7 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 				// newly added
 				if (issuedType == null) {
 					System.out.println("Book is not taken");
-					return;
+					return 1;
 				}
 				
 				Long overallTotalQty = null;
@@ -1082,7 +1093,7 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 				} catch (Exception e) {
 					e.printStackTrace();
 		    		System.out.println("Rules is not set for readerType : " + readerType + " for category/Issue : " + bookCategoryORIssue);
-		    		return;
+		    		return 2;
 				}
 				
 				// dayLimit not needed as we have expected return date and todays date
@@ -1190,6 +1201,7 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 			    createTransactionHistoryReturning ( person ,  book , bookID ,  personID , issueDate , 
 			    		GenProp.customTypeIssue, todayDate , fineCollected , bookName , authour);
 			    
+			    returnType = 0;
 			} catch (TransactionFailed e) {
 				
 			} finally {
@@ -1198,6 +1210,7 @@ public void addMeToWaitORAssignList ( String personID , String bookTitleID) thro
 			      }
 			}
 			
+			return returnType;
 			
 		}
 		
