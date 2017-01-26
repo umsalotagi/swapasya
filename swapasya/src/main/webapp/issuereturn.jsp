@@ -66,7 +66,7 @@ margin-left:0px;
 </style>
 </head>
 <body>
-<form name="form" onsubmit="return Validate()">
+<form name="form" onsubmit="return Validate()" action="performissuereturn.jsp">
 <div id="nav">
 <ul>
 <li><a href="Login.jsp">Login</a></li>
@@ -80,13 +80,24 @@ margin-left:0px;
 </div>
 <div id="content">
 <div style="margin-left: 50px;margin-top: 50px;">
+<div style="width: 960px; margin: 0 auto;">
+<li style="margin-left:0px;border: 1px solid;
+	background-color: orange;
+	width: 30px;
+	height: 20px;
+	padding: 10px;
+	
+	display: inline;
+	"><a href="Hello.html">Hello</a></li>
+	</div>
 <table cellspacing="10px">
-<tr><td>Student ID *</td><td><input type="text" name="sid"/></td></tr>
+<tr><td>Person ID *</td><td><input type="text" name="pid"/></td></tr>
 <tr><td>Book ID *</td><td><select name="bid">
 <option>Select</option>
-
+<option>B001</option>
 </select></td>
-<tr><td><input type="submit" value="Issue" name="issue"/></td><td><input type="submit" value="Return" name="return"/></td></tr>
+Select Date<input type="date" name="dt" value="1/12/2017">
+<tr><td><input type="submit" value="Issue" name="libop"/></td><td><input type="submit" value="Return" name="libop"/></td></tr>
 </table>
 </div>
 </div>

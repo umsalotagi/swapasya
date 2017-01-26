@@ -63,8 +63,13 @@ margin-left:0px;
 <%
 Read r=new Read("MH001");
 Entity e=r.getPerson(pid);
-out.println(e.getProperty(PersonProp.personName));
+out.println(e.getProperty(PersonProp.personID));
+out.println(e.getProperty(PersonProp.personName)+"</br>");
+out.println(e.getProperty(PersonProp.inPossession)+"</br>");
+
+
 %>
+<input type="submit" value="Edit">
 </div>
 </div>
 

@@ -2,6 +2,7 @@ package com.swapasya.core;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.appengine.api.NamespaceManager;
@@ -93,6 +94,20 @@ public class Read {
 		return book;
 	}
 	
+	public List<String> getBid()
+	{
+		List<String> l=new ArrayList<>();
+		
+		try{
+			
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			
+		}
+		return l;
+	}
 	
 	public Entity getBookTitle (String titleID) {
 		Entity bookTitle = null;

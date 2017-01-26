@@ -63,7 +63,7 @@ margin-left:0px;
 </style>
 </head>
 <body>
-<form name="form" onsubmit="return Validate()">
+<form name="form" onsubmit="return Validate()" action="myproile.jsp">
 <div id="nav">
 <ul>
 <li><a href="Login.jsp">Login</a></li>
