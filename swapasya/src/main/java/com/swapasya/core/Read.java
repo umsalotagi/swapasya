@@ -3,6 +3,10 @@ package com.swapasya.core;
 
 
 import java.util.ArrayList;
+
+
+import java.util.HashMap;
+
 import java.util.List;
 
 import com.google.appengine.api.NamespaceManager;
@@ -23,6 +27,7 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.swapasya.dataTypes.BookProp;
+import com.swapasya.dataTypes.BookTitleProp;
 import com.swapasya.dataTypes.NameKinds;
 import com.swapasya.dataTypes.PersonProp;
 import com.swapasya.dataTypes.TransactionHistoryProp;
@@ -48,15 +53,67 @@ public class Read {
 	
 	// AssignList, waitlist 
 	
-	public Entity getAssignList (String personID) {
-		Entity person = null;
-		try {
-			person = datastore.get(KeyFactory.createKey(NameKinds.Person, personID));
-		} catch (EntityNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return person;
+	public ArrayList<HashMap<String, String>> getAssignList (String personID) {
+		List<Entity> assignList = null;
+		//	person = datastore.get(KeyFactory.createKey(NameKinds.Person, personID));
+			Filter f = new FilterPredicate("personID", FilterOperator.EQUAL, personID);
+	    	Query q = new Query(NameKinds.AssignList).setFilter(f).setKeysOnly();
+	    	assignList = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
+	    	
+	    	ArrayList<HashMap<String, String>> hashMapArray = new ArrayList<>();
+	    	
+	    	for (Entity e : assignList) {
+	    		HashMap<String, String> hashMap = new HashMap<>();
+	    		Key parentbookTitleKey = e.getKey().getParent();
+	    		Entity parentbookTitle;
+				try {
+					parentbookTitle = datastore.get(parentbookTitleKey);
+					
+					hashMap.put(BookTitleProp.bookTitleID, (String) parentbookTitleKey.getName());
+					hashMap.put(BookTitleProp.bookName, (String) parentbookTitle.getProperty(BookTitleProp.bookName));
+					hashMap.put(BookTitleProp.author, (String) parentbookTitle.getProperty(BookTitleProp.author));
+		    		hashMapArray.add(hashMap);
+				} catch (EntityNotFoundException e2) {
+					// TODO Auto-generated catch block
+					//e2.printStackTrace();
+				} // get titleID
+	    		
+	    		
+	    	}
+	    	
+		return hashMapArray;
+	}
+	
+	
+	public ArrayList<HashMap<String, String>> getWaitList (String personID) {
+		List<Entity> waitList = null;
+		//	person = datastore.get(KeyFactory.createKey(NameKinds.Person, personID));
+			Filter f = new FilterPredicate("personID", FilterOperator.EQUAL, personID);
+	    	Query q = new Query(NameKinds.WaitList).setFilter(f).setKeysOnly();
+	    	waitList = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
+	    	
+	    	ArrayList<HashMap<String, String>> hashMapArray = new ArrayList<>();
+	    	
+	    	for (Entity e : waitList) {
+	    		HashMap<String, String> hashMap = new HashMap<>();
+	    		Key parentbookTitleKey = e.getKey().getParent();
+	    		Entity parentbookTitle;
+				try {
+					parentbookTitle = datastore.get(parentbookTitleKey);
+					
+					hashMap.put(BookTitleProp.bookTitleID, (String) parentbookTitleKey.getName());
+					hashMap.put(BookTitleProp.bookName, (String) parentbookTitle.getProperty(BookTitleProp.bookName));
+					hashMap.put(BookTitleProp.author, (String) parentbookTitle.getProperty(BookTitleProp.author));
+		    		hashMapArray.add(hashMap);
+				} catch (EntityNotFoundException e2) {
+					// TODO Auto-generated catch block
+					//e2.printStackTrace();
+				} // get titleID
+	    		
+	    		
+	    	}
+	    	
+		return hashMapArray;
 	}
 	
 	
@@ -201,7 +258,6 @@ public class Read {
 
 			e1.printStackTrace();
 		}
-		System.out.println("Book history of book " + book.getProperty(BookProp.bookName));
 		
 		Query q = new Query(NameKinds.TransactionHistory);
 		

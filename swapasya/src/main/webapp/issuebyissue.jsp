@@ -1,6 +1,7 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
 
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -64,45 +65,9 @@ margin-left:0px;
 #nav ul li a{background: :#fbe49b;text-decoration:none;padding:10px 10px 6px 10px;text-transform:uppercase;border-left:1px solid #e4bc3f;border-top: 1px solid #e4bc3f; border-right: 1px solid #e4bc3f; background-color: #fbe49b}
  
 </style>
-
 </head>
-
-
-
-
-<style>
-/* div {
-  transition: all linear 0.5s;
-  background-color: lightblue;
-  height: 100px;
-  width: 100%;
-  position: relative;
-  top: 0;
-  left: 0;
-}
-*/
-.ng-show {
-  height: 0;
-  width: 0;
-  background-color: transparent;
-  top:-200px;
-  left: 200px;
-} 
-
-</style>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
-
-<body ng-app="myApp">
-
-<!-- <h1>Hide the DIV: <input type="checkbox" ng-model="myCheck"></h1>
-
-<div ng-hide="myCheck"></div>
-
-<script>
-var app = angular.module('myApp', ['ngAnimate']);
-</script>
- --><form name="form" onsubmit="return Validate()" action="performissuebycategory.jsp">
+<body>
+<form name="form" onsubmit="return Validate()" action="performissuereturn.jsp">
 <div id="nav">
 <ul>
 <li><a href="Login.jsp">Login</a></li>
@@ -124,45 +89,15 @@ var app = angular.module('myApp', ['ngAnimate']);
 	padding: 10px;
 	
 	display: inline;
-	">
-	
-	<input type="checkbox" ng-model="myCheck">IssueByCategory
-	</li>
-</br></br></br>
-<div ng-show="myCheck">
-<table cellspacing="10px">
-<tr><td>Person ID *</td><td><input type="text" name="pid"/></td></tr>
-<tr><td>Book ID *</td><td><select name="bid">
-<option>Select</option>
-<option>B001</option>
-</select></td>
-Select Date<input type="date" name="dt" value="1/12/2017">
-<tr><td><input type="submit" value="Issue" name="libop"/></td><td><input type="submit" value="Return" name="libop"/></td></tr>
-</table>
-
-</div>
-
-<script>
-var app = angular.module('myApp', ['ngAnimate']);
-</script>
-	
-	
-	
-<li style="margin-left:50px;border: 1px solid;
+	"><a href="Hello.html">IssueByCategory</a></li>
+<li style="margin-left:0px;border: 1px solid;
 	background-color: orange;
 	width: 30px;
 	height: 20px;
 	padding: 10px;
-	margin-top:100px;
-	display: inline;
-	">
 	
-
-
-
-
-
-	<a href="issuebyissue.jsp"  rel="noopener noreferrer" target="_blank">IssueByIssue</a></li>
+	display: inline;
+	"><a href="issuebyissue.jsp"  rel="noopener noreferrer" target="_blank">IssueByIssue</a></li>
 <li style="margin-left:0px;border: 1px solid;
 	background-color: orange;
 	width: 30px;
@@ -173,7 +108,16 @@ var app = angular.module('myApp', ['ngAnimate']);
 	"><a href="Hello.html">IssueByRandom</a></li>
  
 	</div></br></br></br>
-
+<table cellspacing="10px">
+<tr><td>Person ID *</td><td><input type="text" name="pid"/></td></tr>
+<tr><td>Book ID *</td><td><select name="bid">
+<option>Select</option>
+<option>B001</option>
+</select></td>
+<tr><td>Select Date</td><td><input type="date" name="dt" value="1/12/2017"></td></tr>
+<tr><td>Is Book Bank Allowed</td><td><input type="radio" name="booktype" value="bookbank"/></td></tr>
+<tr><td><input type="submit" value="Issue" name="libop"/></td><td><input type="submit" value="Return" name="libop"/></td></tr>
+</table>
 </div>
 </div>
 

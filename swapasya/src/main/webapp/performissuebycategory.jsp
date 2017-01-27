@@ -40,8 +40,19 @@ System.out.println(d);
 System.out.println("In String form="+s);
 
 
-gf.issueBookByCategory(pid, bid, d);
-}
+int i=gf.issueBookByCategory(pid, bid, d);
+
+if(i==0)
+{
+
 %>
+Issued Successfully...
+<jsp:include page="issuebyissue.jsp"></jsp:include>
+<%
+}
+else{
+	out.println("Book limit crossed");
+}
+}%>
 </body>
 </html>
