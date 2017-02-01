@@ -3,8 +3,7 @@ package com.swapasya.core;
 
 
 import java.util.ArrayList;
-
-
+import java.util.Date;
 import java.util.HashMap;
 
 import java.util.List;
@@ -17,6 +16,7 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.PropertyProjection;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.CompositeFilter;
 import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
@@ -235,6 +235,51 @@ public class Read {
 		
 	}
 	
+	
+public List<Entity> getHistory2 (String personID) throws TransactionFailed {
+		
+		Entity person = null;
+		Key k ;
+		try {
+		// person = datastore.get(KeyFactory.createKey(NameKinds.Person, personID));
+			k = KeyFactory.createKey(NameKinds.Person, personID);
+			person = datastore.get(k);
+		} catch (Exception e) {
+    		e.printStackTrace();
+    		System.out.println("EntityNotFound BookID or PersonID is invalid");
+    		throw new TransactionFailed ();
+    	}
+
+		Query q = new Query(NameKinds.TransactionHistory, k).addSort(TransactionHistoryProp.dateOfIssue, SortDirection.ASCENDING);
+		q.addProjection(new PropertyProjection(TransactionHistoryProp.bookID, String.class));
+		q.addProjection(new PropertyProjection(TransactionHistoryProp.bookName, String.class));
+		q.addProjection(new PropertyProjection(TransactionHistoryProp.authour, String.class));
+	    q.addProjection(new PropertyProjection(TransactionHistoryProp.dateOfIssue, Date.class));
+	    q.addProjection(new PropertyProjection(TransactionHistoryProp.dateOfReturn, Date.class));
+	    q.addProjection(new PropertyProjection(TransactionHistoryProp.fineCollected, Float.class));
+		
+		
+		List<Entity> results = datastore.prepare(q).asList(FetchOptions.Builder.withLimit(5));
+
+		
+		return results;
+		
+		
+	}
+
+
+	public List<Entity> searchCatalogue (String bookName) throws TransactionFailed {
+		
+		Query q = new Query(NameKinds.BookTitle);
+		
+	//	Filter f = new FilterPredicate(BookTitleProp.bookName, FilterOperator.IN, bookID);
+		
+		
+		
+		return null;
+		
+		
+	}
 	
 	
 	public List<Entity> getHistoryForBook (String bookID) throws TransactionFailed {
