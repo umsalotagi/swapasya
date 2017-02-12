@@ -10,7 +10,9 @@ public class BookProp {
 	
 	public static final String purchaseDate = "purchaseDate";
 	public static final String price = "price";
+	public static final String author= "author";
 	
+	public static final String bookName= "bookName";
 	public static final String borrowedBy = "borrowedBy"; //(personid)
 	public static final String issuedType = "issuedType"; // (e.g bookbank/normalissue?)(to be decided at run time for return date)
 	public static final String categoryType = "CategoryType"; // (e.g CD/book/magazine)decided while storing book   ***Mand
