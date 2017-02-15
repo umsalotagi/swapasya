@@ -15,7 +15,10 @@
         <gcloud.plugin.version>2.0.9.74.v20150814</gcloud.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
+        <gae.version>1.9.17</gae.version>
     </properties>
+  
+    
 
     <prerequisites>
         <maven>3.1.0</maven>
@@ -23,11 +26,11 @@
 
     <dependencies>
         <!-- Compile/runtime dependencies -->
-        <dependency>
+        <!-- <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-1.0-sdk</artifactId>
             <version>${appengine.version}</version>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -39,6 +42,45 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+        <!-- <dependency>
+    <groupId>javax.activation</groupId>
+    <artifactId>activation</artifactId>
+    <version>1.1.1</version>
+</dependency> -->
+   <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-email -->
+<!-- <dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-email</artifactId>
+    <version>1.2</version>
+</dependency> -->
+<!-- https://mvnrepository.com/artifact/com.google.appengine/appengine-api-1.0-sdk -->
+<!-- <dependency>
+    <groupId>com.google.appengine</groupId>
+    <artifactId>appengine-api-1.0-sdk</artifactId>
+    <version>1.9.48</version>
+</dependency>
+
+ -->
+<!-- 
+<dependency>
+  <groupId>com.google.appengine</groupId>
+  <artifactId>appengine-api-labs</artifactId>
+  <version>${gae.version}</version>
+  <scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>com.google.appengine</groupId>
+  <artifactId>appengine-api-stubs</artifactId>
+  <version>${gae.version}</version>
+  <scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>com.google.appengine</groupId>
+  <artifactId>appengine-testing</artifactId>
+  <version>${gae.version}</version>
+  <scope>test</scope>
+</dependency>
+ -->
 
         <!-- Test Dependencies -->
         <dependency>
@@ -54,6 +96,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    
 
     <build>
         <!-- for hot reload of the web application-->
