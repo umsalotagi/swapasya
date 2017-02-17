@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%!int i=0; %>
+<%--<%!int i=0; 
 <%
 String libop=request.getParameter("libop");
 if("Issue".equals(libop))
@@ -53,6 +53,6 @@ Issued Successfully...
 else{
 	out.println("Book limit crossed");
 }
-}%>
+}%>--%>
 </body>
 </html>

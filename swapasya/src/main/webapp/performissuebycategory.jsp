@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%
+<%--<%
 String libop=request.getParameter("libop");
 if("Issue".equals(libop))
 {
@@ -45,7 +45,7 @@ int i=gf.issueBookByCategory(pid, bid, d);
 if(i==0)
 {
 
-%>
+
 Issued Successfully...
 <jsp:include page="issuebyissue.jsp"></jsp:include>
 <%
@@ -53,6 +53,6 @@ Issued Successfully...
 else{
 	out.println("Book limit crossed");
 }
-}%>
+}%>--%>
 </body>
 </html>
