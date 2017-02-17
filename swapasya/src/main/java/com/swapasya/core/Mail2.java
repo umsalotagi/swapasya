@@ -33,14 +33,17 @@ public class Mail2 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			sendMail();	
+		 String to = "vinirmititech@gmail.com";//change accordingly  
+	      String from = request.getParameter("email");//change accordingly  
+	      String host = "127.0.0.1";//or IP address  
+	  String subject=request.getParameter("subject");
+	  String msg=request.getParameter("msg");
+		sendMail(to,from,host,subject,msg);
+		response.sendRedirect("index.html");
 }
 	  
 	  
-	 static void sendMail(){ 
-	      String to = "shri3patil@gmail.com";//change accordingly  
-	      String from = "m.shripatil@gmail.com";//change accordingly  
-	      String host = "127.0.0.1";//or IP address  
+	 static void sendMail(String to,String from,String host,String subject,String msg){ 
 	  
 	     //Get the session object  
 	      Properties properties = System.getProperties();  
@@ -52,8 +55,8 @@ public class Mail2 extends HttpServlet {
 	         MimeMessage message = new MimeMessage(session);  
 	         message.setFrom(new InternetAddress(from));  
 	         message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));  
-	         message.setSubject("Ping");  
-	         message.setText("Hello, this is example of sending email  ");  
+	         message.setSubject(subject);  
+	         message.setText(msg);  
 	  
 	         // Send message  
 	         Transport.send(message);  
@@ -62,5 +65,3 @@ public class Mail2 extends HttpServlet {
 	      }catch (MessagingException mex) {mex.printStackTrace();}  
 	   }  
 	}  
-
-
